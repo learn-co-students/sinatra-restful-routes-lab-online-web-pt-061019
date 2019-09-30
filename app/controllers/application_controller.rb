@@ -19,23 +19,25 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/recipes' do
-    Recipe.new(
-      name: params[:name],
-      ingredients: params[:ingredients],
-      cook_time: params[:cook_time]
-    ).tap do |recipe|
-      recipe.save
-      redirect "/recipes/#{recipe.id}"
+    recipe = Recipe.new(params)
+    if recipe.save
+      redirect "recipes/#{recipe.id}"
+    else
+      redirect '/recipes/new'
     end
   end
 
   get '/recipes/:id' do
-    @recipe = Recipe.find(params[:id])
-    erb :show
+    @recipe = Recipe.find_by_id(params[:id])
+    if @recipe
+      erb :show
+    else
+      redirect '/recipes'
+    end
   end
 
   get '/recipes/:id/edit' do  #load edit form
-  	@recipe = Recipe.find(params[:id])
+  	@recipe = Recipe.find_by_id(params[:id])
       erb :edit
   end
   	 
