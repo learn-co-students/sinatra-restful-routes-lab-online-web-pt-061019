@@ -4,9 +4,9 @@
 
 <hr />
 
-<a href='/recipes/<%= @recipe.id %>/edit'>Edit</a>
+<a href="/recipes/<%= @recipe.id %>/edit">Edit</a>
+
 <form action="/recipes/<%= @recipe.id %>" method="post">
-<input type="hidden" id="hidden" name="_method" value="delete">
-<br />
-<input type="submit" value="delete">
+  <input type="hidden" id="hidden" name="_method" value="delete">
+  <input type="submit" value="delete" id="delete">
 </form>
